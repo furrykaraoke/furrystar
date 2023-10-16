@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center py-5 my-5">TOP 20</h1>
+    <table class="table ">
+        <tbody>
+        {% for song in top_songs %}
+        <tr class="text-center">
+            <td>{{ song.title }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

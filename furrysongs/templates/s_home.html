@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">{{song.title}}</h1>
+        <div class="col-lg-6 mx-auto">
+            <input type="text" id="searchInput"  class="form-control" placeholder="">
+            <div class="mt-5">
+                <ul class="list-group" id="searchResults"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <table id="my-table" class="table" data-toggle="table" data-url="piojs" data-filter-control="true"  data-page-list="[10, 25, 50, 100, all]" data-pagination="true">
+            <thead>
+            <tr>
+                <th data-sortable="true" data-field="tytul">Nazwa Utworu</th>
+                <th data-sortable="true" data-field="rating">Ranking</th>
+                <th data-sortable="true" data-field="play_count">Liczba Odtworzeń</th>
+                <th data-sortable="true" data-field="jezyk" data-filter-control="select">Język</th>
+                <th data-field="id" data-formatter="akcja">Akcja</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Tutaj będą dynamicznie dodawane wiersze wyników wyszukiwania -->
+<!--            {% for song in songs %}
+            <tr>
+                <td>{{ song.title }}</td>
+                <td>{{ song.rating|default:"Brak ocen" }}</td>
+                <td>{{ song.play_count }}</td> 
+                <td><a href="{% url 'piosenka' song.id %}" class="btn btn-sm btn-secondary">Przejdź do piosenki</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>-->
+    </div>
+</div>
+
+{% endblock %}

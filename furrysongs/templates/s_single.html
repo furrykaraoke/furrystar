@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for song in songs %}
+<div class="container">
+    <div class="py-5 my-5 text-center ">
+        <h1 class="display-5 fw-bold text-body-emphasis">{{song.title}}</h1>
+        <div class="col-lg-6 mx-auto">
+            <h3>OCENA: {{song.rating}}</h3>
+            <h3>Ilość odtworzeń: {{song.play_count}}</h3>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'rate_song' song.id %}" type="button" class="btn btn-primary btn-lg px-4 gap-3">Oceń</a>
+            </div>
+        </div>
+    </div>
+
+    <table id="results-table" class="table">
+        <thead>
+        <tr>
+            <th>Nick</th>
+            <th>Ocena</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Tutaj będą dynamicznie dodawane wiersze wyników wyszukiwania -->
+        {% for rating in wocen %}
+        <tr>
+            <td>{{ rating.nick }}</td>
+            <td>{{ rating.value}}</td>
+
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endfor %}
+{% endblock %}

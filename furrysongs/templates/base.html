@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karaoke</title>
+    {% load static %}
+    <!-- Dodaj link do pliku CSS Bootstrap (zmień ścieżkę, jeśli potrzebujesz) -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wolf.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/extensions/filter-control/bootstrap-table-filter-control.min.css' %}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+
+</head>
+<body class="position-relative">
+<div class="app">
+    <main class="main">
+        <!-- Nawigacja -->
+        <div class="w-100 mt-5 text-center"><a href="{% url 'home' %}"><img class="img-fluid text-center" width="50%" src="{% static 'images/furrystar.png'%}"></a>
+        </br>
+        <h3 class="welcome" height="30%"></h3>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent d-flex px-5">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Lista</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'top_songs' %}">Ranking</a>
+                    </li>
+                    <!-- Dodaj inne elementy nawigacji, jeśli są potrzebne -->
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Zawartość strony -->
+        {% block content %}
+        {% endblock %}
+        <!-- Skrypty JavaScript Bootstrap (dodaj przed zakończeniem tagu </body>) -->
+    </main>
+    <footer class="footer w-100 py-3 position-absolute bottom-0 start-50 translate-middle-x">
+        <div class="container text-center">
+          <span class="text-light ">Stopka, niby zwykły element strony a fetyszystów podnieci 🐾 LOREN 🐾 RASTI 🐾 BONN333</span>
+        </div>
+  </footer>
+     <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-pl-PL.min.js' %}"></script>
+<script src="{% static 'css/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"></script>
+</body>
+</html>

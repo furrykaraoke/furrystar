@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Piosenki</h1>
+  <div class="row">
+    {% for song in songs %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ song.title }}</h5>
+          <p class="card-text">Ocena: {{ song.rating|default:"Brak ocen" }} <span class="text-muted">({{ song.play_count }} odtworzeń)</span></p>
+          <a class="btn btn-primary" data-toggle="modal" data-target="#rateModal">Oceń</a>
+          <button class="btn btn-success" onclick="incrementPlayCount({{ song.id }})">Grać</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+<div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rateModalLabel">Oceń piosenkę</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/rate/">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Dodaj ocenę</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function incrementPlayCount(songId) {
+    var csrfToken = getCookie('csrftoken'); // Pobierz token CSRF z ciasteczka
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'increment_play_count' 0 %}".replace('0', songId),
+      data: {
+        csrfmiddlewaretoken: csrfToken // Dodaj token CSRF jako część danych
+      },
+      success: function(data) {
+        if (data.message) {
+          location.reload();
+        }
+      }
+    });
+  }
+
+  // Funkcja do pobierania wartości tokenu CSRF z ciasteczka
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + '=') {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+
+</script>
+{% endblock %}
