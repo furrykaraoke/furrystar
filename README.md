@@ -3,7 +3,7 @@ Aplikacja webowa do listy utworów karaoke, oparta na technologiach django, boot
 # Instalacja
 Potrzebujesz pythona na pewno. W wersji 3.10 wyżej bodajże.<br>
 Sklonuj repo <br>
-`git clone -b dev https://github.com/TheRustedWolf/FURRYSTAR/`<br>
+`git clone https://github.com/furrykaraoke/furrystar/`<br>
 Pobierz zależności z requirements.txt<br>
 `pip install -r requirements.txt`<br>
 Wygeneruj klucz sekretny, którego sobie użyjesz później w furrystar/settings.py w zmiennej SECRET_KEY w te gwiazdki wklej wygenerowany klucz<br>
