@@ -27,7 +27,7 @@
 <!--            {% for song in songs %}
             <tr>
                 <td>{{ song.title }}</td>
-                <td>{{ song.rating|default:"Brak ocen" }}</td>
+                <td>{{ song.avarage_rating|default:"Brak ocen" }}</td>
                 <td>{{ song.play_count }}</td> 
                 <td><a href="{% url 'piosenka' song.id %}" class="btn btn-sm btn-secondary">Przejdź do piosenki</a></td>
             </tr>

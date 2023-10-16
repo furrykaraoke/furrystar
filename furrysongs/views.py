@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Song, Rating
 from .forms import RatingForm, DodajPiosenkiForm
@@ -7,29 +8,15 @@ from .decorators import admin_required
 #from django.core import serializers
 
 def home(request):
-    songs = Song.objects.all().order_by('title')
-
-    for song in songs:
-        ratings = Rating.objects.filter(song=song)
-        total_rating = sum([rating.value for rating in ratings]) if ratings else 0
-        average_rating = total_rating / len(ratings) if ratings else 0
-        song.rating = int(average_rating)
+    #paginacja
+    songs = Song.objects.prefetch_related('ratings').annotate(avarage_rating=Avg('ratings__value'))[:30]
 
     return render(request, 's_home.html', {'songs': songs})
 
 
 def piosenka(request, song_id):
-    songs = Song.objects.filter(pk=song_id)
-    wocen = Rating.objects.filter(song=song_id)
-    for song in songs:
-        ratings = Rating.objects.filter(song=song)
-        total_rating = sum([rating.value for rating in ratings]) if ratings else 0
-        average_rating = total_rating / len(ratings) if ratings else 0
-        song.rating = int(average_rating)
-
-
-
-    return render(request, 's_single.html', {'songs': songs, 'wocen':wocen})
+    songs = Song.objects.filter(pk=song_id).prefetch_related('ratings').annotate(avarage_rating=Avg('ratings__value')).first()
+    return render(request, 's_single.html', {'song': songs, 'ratings': songs.ratings.all()})
 
 
 def rate_song(request, song_id):
@@ -43,7 +30,7 @@ def rate_song(request, song_id):
             nick_value = form.cleaned_data['nick']
             Rating.objects.create(song=song, value=rating_value, nick=nick_value)
             song.play_count += 1
-            song.save()
+            song.save(update_fields=['play_count'])
 
             return redirect('piosenka', song_id)
     else:
@@ -55,15 +42,14 @@ def rate_song(request, song_id):
 def increment_play_count(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     song.play_count += 1
-    song.save()
+    song.save(update_fields=['play_count'])
     return JsonResponse({'message': 'Licznik odtworzeń został zwiększony'})
 
 
 def dynamic_search_songs(request):
     query = request.GET.get('query', '')
-    songs = Song.objects.filter(title__icontains=query)
-    results = [{'id': song.id, 'title': song.title} for song in songs]
-    return JsonResponse({'results': results})
+    songs = list(Song.objects.filter(title__icontains=query).values('id', 'title')[:10])
+    return JsonResponse({'results': songs})
 
 def top_songs(request):
     # Pobierz 10 piosenek o największej liczbie odtworzeń (play_count)

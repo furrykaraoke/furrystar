@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for song in songs %}
 <div class="container">
     <div class="py-5 my-5 text-center ">
         <h1 class="display-5 fw-bold text-body-emphasis">{{song.title}}</h1>
@@ -24,7 +23,7 @@
         </thead>
         <tbody>
         <!-- Tutaj będą dynamicznie dodawane wiersze wyników wyszukiwania -->
-        {% for rating in wocen %}
+        {% for rating in ratings %}
         <tr>
             <td>{{ rating.nick }}</td>
             <td>{{ rating.value}}</td>
@@ -36,5 +35,4 @@
     </table>
 </div>
 
-{% endfor %}
 {% endblock %}
