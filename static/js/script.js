@@ -21,10 +21,16 @@ bindInputFocusEvent: true,
   
 });
 
- var searchInput = document.getElementById('searchInput');
-    var searchResults = document.getElementById('searchResults');
+function debounce(func, timeout = 300){
+  let timer;
 
-    searchInput.addEventListener('input', function() {
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+
+function search() {
       var query = searchInput.value.trim();
       if (query.length === 0) {
         searchResults.innerHTML = ''; // Wyczyść wyniki, jeśli pole jest puste
@@ -50,7 +56,11 @@ bindInputFocusEvent: true,
         .catch(error => {
           console.error('Błąd:', error);
         });
-    });
+    }
+ var searchInput = document.getElementById('searchInput');
+    var searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input',  debounce(()=>search()));
 function akcja(value, row, index) {
   return [
       '<a class="btn btn-sm btn-secondary" href="/piosenka/'+row.id+'" >',

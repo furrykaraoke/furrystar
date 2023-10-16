@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Song(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True, db_index=True)
     play_count = models.IntegerField(default=0)
     jezyk = models.CharField(max_length=30, default="Brak")
     def __str__(self):
@@ -12,7 +12,7 @@ class Song(models.Model):
 
 
 class Rating(models.Model):
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name='ratings')
     nick = models.CharField(max_length=60)
     # recenzja = models.CharField(max_length=255)
     value = models.IntegerField(default=0)
