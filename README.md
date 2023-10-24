@@ -1,14 +1,14 @@
 # furrystar
-Aplikacja webowa do listy utworów karaoke, oparta na technologiach django, bootstrap-table, sqlite3 (tymczasowo, bo wiem że lepiej do takich rzeczy użyć postgressa)
+Aplikacja webowa do listy utworów karaoke, oparta na technologiach django, bootstrap-table, postgresa jako bazę danych
 # Instalacja
-Potrzebujesz pythona na pewno. W wersji 3.10 wyżej bodajże.<br>
+Potrzebujesz pythona na pewno. W wersji 3.10 wyżej bodajże. Oraz serwer bazy danych postgres<br>
 Sklonuj repo <br>
 `git clone https://github.com/furrykaraoke/furrystar/`<br>
 Pobierz zależności z requirements.txt<br>
 `pip install -r requirements.txt`<br>
 Wygeneruj klucz sekretny, którego sobie użyjesz później w furrystar/settings.py w zmiennej SECRET_KEY w te gwiazdki wklej wygenerowany klucz<br>
 `python3 generatesecret.py`<br>
-Utwórz bazę danych<br>
+Utwórz bazę danych, ale zanim zrobisz, to w furrystar/settings.py wpisz sobie dane do serwera bazy postgres<br>
 `python3 manage.py makemigrations`<br>
 `python3 manage.py migrate`<br>
 Zrób usera/admina<br>
