@@ -20,8 +20,7 @@ Lokalnie powinna być na http://localhost:2137 jak mnie pamięć nie myli
 Zbuduj kontener<br>
 `docker build -t furrystar:dev .`
 <br>Po zbudowaniu kontenera sobie odpal aplikacje, montując jednocześnie gdzieś tam katalog z bazą danych którą sobie wygenerujesz z bazą piosenek<br>
-`docker run -v /app/furrystar/db:/furrystar/db --name=furrystar -d furrystar:dev`<br>
-Gdzie /app/furrystar/db to twoja ścieżka fizyczna na komputerze z plikiem db.sqlite3.<br>
+`docker run --name=furrystar -d furrystar:dev`<br>
 Wygeneruj se baze po odpaleniu kontenera <br>
 `docker exec -it furrystar python /furrystar/manage.py makemigrations`<br>
 `docker exec -it furrystar python /furrystar/manage.py migrate`<br>
@@ -33,3 +32,7 @@ Sproxuj sobie tam ulubionym menadżerem proxy port 2137 z kontenera. Znajdziesz 
 http://adresiplubdomena/admin
 # Licencja
 MIT
+# TODO
+- Env variable do kontenera, głównie tyczące loginu i hasła i bazy postgresa, bo narazie to jest tak sztywne że to hit. W teorii idzie to zworkaroundować robiąc:<br>
+`docker run -v /app/furrystar/settings.py:/furrystar/furrystar/settings.py --name=furrystar -d furrystar:dev`<br>
+i w miejsce ścieżki wsadzić zmienione settings.py w /app/furrystar/settings.py, ale nie wiem czy to ma jakiś większy sens.
